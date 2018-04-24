@@ -7,10 +7,15 @@ from django.views.decorators.csrf import csrf_exempt
 from app.models import Item
 from django.core import serializers
 
-def index(request):
+@csrf_exempt
+def getList(request):
     items = Item.objects.all()
     print(items)
-    return JsonResponse(serializers.serialize('json',items),safe=False)
+    res = []
+    for item in items:
+        res.append({"subject":item.subject,"content":item.content,"schedule_time":item.schedule_time,"status":item.status,"id":item.pk})
+    print(res)
+    return JsonResponse(res,safe=False)
 
 @csrf_exempt
 def add(request):
