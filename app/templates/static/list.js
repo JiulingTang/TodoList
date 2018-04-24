@@ -33,8 +33,8 @@ var Table = React.createClass({
                 <td>{item.time}</td>
                 <td>{item.status}</td>
                 <td>
-                    <button type="button" class="btn btn-primary">Edit</button>
-                    <button type="button" class="btn btn-primary">Delete</button>
+                    <button type="button" className="btn btn-primary">Edit</button>
+                    <button type="button" className="btn btn-primary">Delete</button>
                 </td>
               </tr>
             );
