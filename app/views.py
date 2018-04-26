@@ -22,7 +22,8 @@ def add(request):
     item = Item(subject=request.POST['subject'],content=request.POST['content'],
                 schedule_time=request.POST['schedule_time'],status=False)
     item.save()
-    return HttpResponse("")
+    print(item.pk)
+    return JsonResponse({"id":item.pk},safe=False)
 
 @csrf_exempt
 def delete(request):
@@ -37,14 +38,16 @@ def delete(request):
 @csrf_exempt
 def update(request):
     id = request.POST['id']
+    print(id)
     try:
         item = Item.objects.get(pk=id)
         item.subject=request.POST['subject']
         item.content=request.POST['content']
         item.schedule_time=request.POST['schedule_time']
         item.save()
-    except (KeyError, Item.DoesNotExist):
+    except (KeyError, Item.DoesNotExist) as e:
         print("update fail")
+        print(e)
     return HttpResponse("")
 
 @csrf_exempt
@@ -52,7 +55,7 @@ def changeStatus(request):
     id = request.POST['id']
     try:
         item = Item.objects.get(pk=id)
-        item.status=request.POST['status']
+        item.status=request.POST['status']=='true'
         item.save()
     except (KeyError, Item.DoesNotExist):
         print("change status fail")
