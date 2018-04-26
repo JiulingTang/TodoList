@@ -82,7 +82,19 @@ var Table = React.createClass({
         }.bind(this))
   },
 
+  previousPage:function(){
+    var index=this.state.index
+    if (index>0)
+    index--;
+    this.setState({index:index})
+  },
 
+  nextPage:function(){
+    var index=this.state.index
+    if ((index+1)*5<=this.state.items.length-1)
+    index++;
+    this.setState({index:index})
+  },
 
   getInitialState: function() {
     var promise = $.getJSON("/todo_list/item/get/")
@@ -95,6 +107,7 @@ var Table = React.createClass({
     return {
      items : [
      ],
+     index:0
     };
   },
 
@@ -104,7 +117,7 @@ var Table = React.createClass({
         var trs=this.state.items.map(function(item){
             i++
             return (
-            <tr key={item.id}>
+            <tr key={item.id} style={{display:i-1>=this.state.index*5&&i-1<=this.state.index*5+4?'':'none'}}>
                 <th scope="row">{i}</th>
                 <td className="value_td">{item.subject}</td>
                 <td  className="input_td" style={{display:'none'}}>
@@ -171,7 +184,14 @@ var Table = React.createClass({
                         <button type="button" className="btn btn-primary" onClick={this.addItem}>Add</button>
                     </td>
                 </tr>
+                <tr>
+                    <ul className="pagination">
+                     <li className="page-item"><a className="page-link" href="#" onClick={this.previousPage}>Previous</a></li>
+                     <li className="page-item"><a className="page-link" href="#" onClick={this.nextPage}>Next</a></li>
+                    </ul>
+                </tr>
             </tbody>
+
         </table>
         );
 
