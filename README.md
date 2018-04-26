@@ -28,7 +28,7 @@
 
 5.列出待办事项
 
-![](https://github.com/JiulingTang/TodoList/blob/master/appImage/getList.gif)
+![](https://github.com/JiulingTang/TodoList/blob/master/appImage/getList.GIF)
 
 6.列表翻页
 
